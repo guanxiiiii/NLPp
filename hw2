@@ -66,10 +66,21 @@ from nltk.corpus.reader import PlaintextCorpusReader
 source_dir = "TY_Research"
 pcr = PlaintextCorpusReader(root=source_dir, fileids=".*\.txt")
 
+
 from nltk.probability import FreqDist
 fd = FreqDist(samples=pcr.words())
+
+import urllib
+file = urllib.request.urlopen(url="https://raw.githubusercontent.com/stopwords-iso/stopwords-zh/master/stopwords-zh.txt")
 stopwords = file.read().decode("utf8").split()
-print(fd.most_common(n=200))
+print(fd.most_common(n=5000))
+
+from gensim.models import Word2Vec
+from gensim.models.word2vec import PathLineSentences
+corpus = PathLineSentences(source_dir)
+
+model = Word2Vec(sentences=corpus, vector_size=5000, window=5, min_count=1, workers=4)
+print(model.wv.most_similar(positive=['天氣',"晴朗"], negative=['下雨']))
 
 from gensim.models import Word2Vec
 from gensim.models.word2vec import PathLineSentences
