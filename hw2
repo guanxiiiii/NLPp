@@ -87,4 +87,4 @@ from gensim.models.word2vec import PathLineSentences
 corpus = PathLineSentences(Gossiping_dir)#"Gossiping")
 
 model = Word2Vec(sentences=corpus, vector_size=100, window=5, min_count=1, workers=4)
-print(model.wv.most_similar(positive=['天氣',"晴朗"], negative=['多雨']))
+print(model.wv.most_similar(positive=['南部',"晴朗"], negative=['北部']))
